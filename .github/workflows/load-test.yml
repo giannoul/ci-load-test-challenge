@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-release-image:
+  load-test:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
@@ -35,6 +35,7 @@ jobs:
         run: |
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "k6results<<$EOF" >> "$GITHUB_ENV"
+          echo "Load Test Results:" >> "$GITHUB_ENV"
           cat comment.txt >> "$GITHUB_ENV"
           echo "$EOF" >> "$GITHUB_ENV"
 
