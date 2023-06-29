@@ -59,27 +59,3 @@ resource "kustomization_resource" "p2" {
   manifest = data.kustomization_build.manifests.manifests[each.value]
   depends_on = [kustomization_resource.p1]
 }
-
-
-
-
-#resource "null_resource" "wait_for_apis" {
-#  provisioner "local-exec" {
-#    command = <<EOF
-#      for i in {1..15}; do
-#        ENABLED_APIS=$(gcloud services list --enabled --project=${var.project_id} | grep -E '${local.api_list_grep_match}' | wc -l)
-#        if [[ $ENABLED_APIS -eq ${local.api_list_length} ]]; then
-#          echo "All APIs have been enabled"
-#          exit 0
-#        fi
-#        echo "$ENABLED_APIS/${local.api_list_length} have been enabled"
-#        sleep $i
-#      done
-#      echo "Some API services failed initialization after 90s of trying."
-#      exit 1
-#    EOF
-#  }
-#  depends_on = [module.enabled_google_apis]
-#}
-
-# https://github.com/grafana/k6/releases/download/v0.45.0/k6-v0.45.0-linux-amd64.tar.gz

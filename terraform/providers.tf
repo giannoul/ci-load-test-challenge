@@ -17,5 +17,5 @@ provider "kind" {
 
 provider "kustomization" {
   # Configuration options
-  kubeconfig_path = "~/.kube/config"
+  kubeconfig_raw = yamlencode(kind_cluster.current.kubeconfig)
 }
