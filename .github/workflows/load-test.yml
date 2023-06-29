@@ -1,0 +1,44 @@
+name: load-test
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-release-image:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Terraform apply
+        working-directory: ./terraform
+        run: terraform apply -auto-approve
+
+      - name: Wait for endpoints
+        run: make wait-for-endpoint
+
+      - name: Install k6
+        run: make install-k6
+
+      - name: Run load test
+        id: run-load-test
+        run: make run-k6
+
+      - name: Get k6 results
+        id: vars
+        run: echo "k6results=$(cat comment.txt)" >> $GITHUB_OUTPUT
+
+      - name: Write load results as comment
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `${{steps.run-load-test.outputs.k6results}}`
+            })
+        
+      
