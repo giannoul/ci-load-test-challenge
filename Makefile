@@ -10,6 +10,6 @@ install-k6:
 
 .PHONY: run-k6
 run-k6:
-	k6 run --summary-trend-stats="p(90),p(95),p(99.9)" k6-load-test/load-test.js --log-output stdout | grep "checks\|http_req_failed\|http_req_duration" > comment.txt 
+	k6 run --summary-trend-stats="p(90),p(95),p(99.9)" k6-load-test/load-test.js --no-color --log-output stdout | grep "checks\|http_req_failed\|http_req_duration" > comment.txt 
 
 
