@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: foo-app-deployment
+  namespace: default
+  labels:
+    app: foo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: foo-app
+  template:
+    metadata:
+      labels:
+        app: foo-app
+    spec:
+      containers:
+      - name: foo-app
+        image: hashicorp/http-echo
+        args:
+        - -text="foo"
+        ports:
+        - containerPort: 5678
+          name: http-web

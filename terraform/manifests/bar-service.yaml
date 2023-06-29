@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: bar-service
+  namespace: default
+spec:
+  selector:
+    app: bar-app
+  ports:
+    - port: 80
+      targetPort: http-web
