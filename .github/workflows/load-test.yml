@@ -34,19 +34,20 @@ jobs:
         id: vars
         run: |
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-          echo "k6results<<$EOF" >> "$GITHUB_OUTPUT"
-          cat comment.txt >> "$GITHUB_OUTPUT"
-          echo "$EOF" >> "$GITHUB_OUTPUT"
+          echo "k6results<<$EOF" >> "$GITHUB_ENV"
+          cat comment.txt >> "$GITHUB_ENV"
+          echo "$EOF" >> "$GITHUB_ENV"
 
       - name: Write load results as comment
         uses: actions/github-script@v6
         with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `${{steps.run-load-test.outputs.k6results}}`
+              body: `${{env.k6results}}`
             })
         
       
