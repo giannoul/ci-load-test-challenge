@@ -32,7 +32,11 @@ jobs:
 
       - name: Get k6 results
         id: vars
-        run: echo "k6results=$(cat comment.txt)" >> $GITHUB_OUTPUT
+        run: |
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "k6results<<$EOF" >> "$GITHUB_OUTPUT"
+          cat comment.txt >> "$GITHUB_OUTPUT"
+          echo "$EOF" >> "$GITHUB_OUTPUT"
 
       - name: Write load results as comment
         uses: actions/github-script@v6
