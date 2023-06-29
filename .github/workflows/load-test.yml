@@ -4,7 +4,8 @@ on:
   pull_request:
     branches:
       - main
-
+env:
+  LANG: C.UTF-8
 jobs:
   load-test:
     runs-on: ubuntu-20.04
