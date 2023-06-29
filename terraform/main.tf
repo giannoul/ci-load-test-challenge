@@ -1,7 +1,12 @@
+locals {
+    kubeconfig_path = pathexpand("~/kubeconfig")
+}
+
 resource "kind_cluster" "current" {
     name           = "ci-cluster"
     wait_for_ready = true
     node_image = "kindest/node:v1.25.11"
+    kubeconfig_path = local.kubeconfig_path
 
   kind_config {
       kind        = "Cluster"
