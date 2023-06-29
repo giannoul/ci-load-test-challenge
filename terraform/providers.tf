@@ -17,5 +17,5 @@ provider "kind" {
 
 provider "kustomization" {
   # Configuration options
-  kubeconfig_path = local.kubeconfig_path
+  kubeconfig_path = kind_cluster.current.kubeconfig
 }
