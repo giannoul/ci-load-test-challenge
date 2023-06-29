@@ -49,9 +49,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `
-              ```
-              ${{env.k6results}}
-              ```
+                ${{env.k6results}}
               `
             })
         
