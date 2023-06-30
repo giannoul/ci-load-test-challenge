@@ -29,11 +29,9 @@ jobs:
         run: make install-k6
 
       - name: Run load test
-        id: run-load-test
         run: make run-k6
 
       - name: Get k6 results
-        id: vars
         run: |
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "k6results<<$EOF" >> "$GITHUB_ENV"
@@ -50,7 +48,6 @@ jobs:
         run: prometheus-port-fwd
         
       - name: Get Prometheus results
-        id: vars
         run: |
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "cpuresults<<$EOF" >> "$GITHUB_ENV"
