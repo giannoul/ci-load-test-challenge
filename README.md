@@ -18,3 +18,5 @@ In order to avoid legthy commands in GitHub Actions, we use a `Makefile` where s
 
 ### K6
 For the load testing part we utilize [k6](https://k6.io/docs/). It is a simple, yet powerful, load testing tool that exports the required metrics/results.
+
+
