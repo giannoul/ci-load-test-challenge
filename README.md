@@ -18,3 +18,7 @@ In order to avoid legthy commands in GitHub Actions, we use a `Makefile` where s
 
 ### K6
 For the load testing part we utilize [k6](https://k6.io/docs/). It is a simple, yet powerful, load testing tool that exports the required metrics/results.
+
+### Helm
+We utilize Helm in order to install `kube-prometheus` and `metrics-server`. These need configuration that gets overly complex using Kustomization. So we fall back to using Helm and some command line settings in order to avoid the large `values.yaml` files.
+
