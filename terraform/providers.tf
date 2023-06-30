@@ -1,11 +1,11 @@
 terraform {
   required_providers {
     kind = {
-      source = "tehcyx/kind"
+      source  = "tehcyx/kind"
       version = "0.1.1"
     }
     kustomization = {
-      source = "kbst/kustomization"
+      source  = "kbst/kustomization"
       version = "0.9.4"
     }
   }
