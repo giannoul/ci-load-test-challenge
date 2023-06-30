@@ -40,6 +40,27 @@ jobs:
           cat comment.txt >> "$GITHUB_ENV"
           echo "$EOF" >> "$GITHUB_ENV"
 
+      - name: Install Prometheus
+        run: make install-prometheus
+
+      - name: Install metrics-server
+        run: make metrics-server
+
+      - name: Expose Prometheus
+        run: prometheus-port-fwd
+        
+      - name: Get Prometheus results
+        id: vars
+        run: |
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "cpuresults<<$EOF" >> "$GITHUB_ENV"
+          make get-cpu-usage >> "$GITHUB_ENV"
+          echo "$EOF" >> "$GITHUB_ENV"
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "memoryresults<<$EOF" >> "$GITHUB_ENV"
+          make get-memory-usage >> "$GITHUB_ENV"
+          echo "$EOF" >> "$GITHUB_ENV"
+
       - name: Write load results as comment
         uses: actions/github-script@v6
         with:
@@ -50,7 +71,17 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `### Load Test Results
+
                 ${{env.k6results}}
+
+              ### Resources consumption
+              #### CPU
+
+                ${{env.cpuresults}}
+
+              #### Memory
+
+                ${{env.memoryresults}}
               `
             })
         
