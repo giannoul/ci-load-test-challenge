@@ -18,3 +18,7 @@ In order to avoid legthy commands in GitHub Actions, we use a `Makefile` where s
 
 ### K6
 For the load testing part we utilize [k6](https://k6.io/docs/). It is a simple, yet powerful, load testing tool that exports the required metrics/results.
+
+
+### Helm
+We use Helm in order to install components that need too much configuration if we go to the Kustomization way. So, metrics-server and kube-prometheus are installed using Helm charts nad with just some cli settings to avoid lengthy `values.yaml` files.
