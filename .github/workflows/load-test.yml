@@ -4,6 +4,8 @@ on:
   pull_request:
     branches:
       - main
+env:
+  LANG: C.UTF-8
 
 jobs:
   load-test:
@@ -49,6 +51,8 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `
+                ### Load Test Results
+                
                 ${{env.k6results}}
               `
             })
