@@ -37,4 +37,4 @@ get-cpu-usage:
 
 .PHONY: get-memory-usage
 get-memory-usage:
-	@curl -s 'http://localhost:9090/graph?g0.expr=sum(container_memory_working_set_bytes%7Bid%3D~%22%2Fdocker%2F.%2B%22%2C%20container%3D~%22.%2B-app%22%7D)%20without%20(container_name%2C%20endpoint%2C%20id%2C%20name%2C%20namespace%2C%20pod%2C%20service%2C%20image%2C%20instance%2C%20job%2C%20metrics_path%2C%20node)%20%0A&g0.tab=1&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h' | jq
+	@curl -s 'http://localhost:9090/api/v1/query?query=sum(container_memory_working_set_bytes%7Bid%3D~%22%2Fdocker%2F.%2B%22%2C%20container%3D~%22.%2B-app%22%7D)%20without%20(container_name%2C%20endpoint%2C%20id%2C%20name%2C%20namespace%2C%20pod%2C%20service%2C%20image%2C%20instance%2C%20job%2C%20metrics_path%2C%20node)%20%0A&g0.tab=1&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h' | jq

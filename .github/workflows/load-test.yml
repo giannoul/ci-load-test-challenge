@@ -47,9 +47,6 @@ jobs:
           cat comment.txt >> "$GITHUB_ENV"
           echo "$EOF" >> "$GITHUB_ENV"
 
-      - name: Wait 120 seconds 
-        run: sleep 120
-        
       - name: Expose Prometheus
         run: make prometheus-port-fwd
         
