@@ -33,8 +33,8 @@ prometheus-port-fwd:
 
 .PHONY: get-cpu-usage
 get-cpu-usage:
-	@curl -s 'http://localhost:9090/api/v1/query?query=sum(rate(container_cpu_usage_seconds_total{container%3D~".%2B-app"}[5m])) without (container_name%2C endpoint%2C id%2C name%2C namespace%2C pod%2C service%2C image%2C instance%2C job%2C metrics_path%2C node%2C cpu) %0A%0A%0A&g0.tab=1&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h' | jq
+	@curl -fs --data-urlencode 'query=sum(rate(container_cpu_usage_seconds_total{container=~".+-app"}[5m]))' http://localhost:9090/api/v1/query | jq -r '.data.result[] | [.value[1] ] | @csv'
 
 .PHONY: get-memory-usage
 get-memory-usage:
-	@curl -s 'http://localhost:9090/api/v1/query?query=sum(container_memory_working_set_bytes{container%3D~".%2B-app"}) without (container_name%2C endpoint%2C id%2C name%2C namespace%2C pod%2C service%2C image%2C instance%2C job%2C metrics_path%2C node) %0A&g0.tab=1&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h' | jq
+	@curl -fs --data-urlencode 'query=sum(container_memory_working_set_bytes{container=~".+-app"})' http://localhost:9090/api/v1/query | jq -r '.data.result[] | [.value[1] ] | @csv'
