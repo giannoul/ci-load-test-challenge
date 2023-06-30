@@ -33,8 +33,8 @@ prometheus-port-fwd:
 
 .PHONY: get-cpu-usage
 get-cpu-usage:
-	@curl -s 'http://localhost:9090/api/v1/query?query=sum(rate(container_cpu_usage_seconds_total%7Bid%3D~%22%2Fdocker%2F.%2B%22%2C%20container%3D~%22.%2B-app%22%7D%5B5m%5D))%20without%20(container_name%2C%20endpoint%2C%20id%2C%20name%2C%20namespace%2C%20pod%2C%20service%2C%20image%2C%20instance%2C%20job%2C%20metrics_path%2C%20node%2C%20cpu)%20%0A%0A%0A&g0.tab=1&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h' | jq
+	@curl -s 'http://localhost:9090/api/v1/query?query=sum(rate(container_cpu_usage_seconds_total{container%3D~".%2B-app"}[5m])) without (container_name%2C endpoint%2C id%2C name%2C namespace%2C pod%2C service%2C image%2C instance%2C job%2C metrics_path%2C node%2C cpu) %0A%0A%0A&g0.tab=1&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h' | jq
 
 .PHONY: get-memory-usage
 get-memory-usage:
-	@curl -s 'http://localhost:9090/api/v1/query?query=sum(container_memory_working_set_bytes%7Bid%3D~%22%2Fdocker%2F.%2B%22%2C%20container%3D~%22.%2B-app%22%7D)%20without%20(container_name%2C%20endpoint%2C%20id%2C%20name%2C%20namespace%2C%20pod%2C%20service%2C%20image%2C%20instance%2C%20job%2C%20metrics_path%2C%20node)%20%0A&g0.tab=1&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h' | jq
+	@curl -s 'http://localhost:9090/api/v1/query?query=sum(container_memory_working_set_bytes{container%3D~".%2B-app"}) without (container_name%2C endpoint%2C id%2C name%2C namespace%2C pod%2C service%2C image%2C instance%2C job%2C metrics_path%2C node) %0A&g0.tab=1&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h' | jq
