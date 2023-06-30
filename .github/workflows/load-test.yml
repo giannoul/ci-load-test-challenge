@@ -82,9 +82,11 @@ jobs:
 
                 ${{env.cpuresults}}
 
+
               #### Memory
 
                 ${{env.memoryresults}}
+                
               `
             })
         
