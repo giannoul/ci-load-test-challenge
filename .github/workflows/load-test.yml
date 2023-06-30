@@ -47,16 +47,19 @@ jobs:
       - name: Expose Prometheus
         run: make prometheus-port-fwd
         
-      - name: Get Prometheus results
+      - name: Get Prometheus cpu results
         run: |
-          EOF1=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-          echo "cpuresults<<$EOF1" >> "$GITHUB_ENV"
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "cpuresults<<$EOF" >> "$GITHUB_ENV"
           make get-cpu-usage >> "$GITHUB_ENV"
-          echo "$EOF1" >> "$GITHUB_ENV"
-          EOF2=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-          echo "memoryresults<<$EOF2" >> "$GITHUB_ENV"
+          echo "$EOF" >> "$GITHUB_ENV"
+
+      - name: Get Prometheus memory results
+        run: |
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "memoryresults<<$EOF" >> "$GITHUB_ENV"
           make get-memory-usage >> "$GITHUB_ENV"
-          echo "$EOF2" >> "$GITHUB_ENV"
+          echo "$EOF" >> "$GITHUB_ENV"
 
       - name: Write load results as comment
         uses: actions/github-script@v6
