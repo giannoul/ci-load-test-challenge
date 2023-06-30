@@ -34,8 +34,8 @@ jobs:
       - name: Install metrics-server
         run: make install-metrics-server
 
-      - name: Wait 120 seconds 
-        run: sleep 120
+      - name: Wait 180 seconds 
+        run: sleep 180
 
       - name: Run load test
         run: make run-k6
