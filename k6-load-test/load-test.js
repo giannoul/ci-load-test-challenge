@@ -14,31 +14,20 @@ export default function () {
    group('foo check', () => {
        const response = http.get('http://foo.localhost');
        check(response, {
-           "status code should be 200": res => res.status === 200,
+           'status code should be 200': res => res.status === 200,
        });
    });
 
    group('bar check', () => {
         const response = http.get('http://bar.localhost');
         check(response, {
-            "status code should be 200": res => res.status === 200,
+            'status code should be 200': res => res.status === 200,
         });
     });
 };
 
 export function handleSummary(data) {
-    delete data.metrics[
-        'http_req_duration{expected_response:true}',
-        'data_received',
-        'data_sent'
-
-    ];
-  
-    for (const key in data.metrics) {
-      if (key.startsWith('iteration')) delete data.metrics[key];
-    }
-  
     return {
-      stdout: textSummary(data, {}),
-    };
-  }
+        'stdout': textSummary(data, { indent: ' ', enableColors: false })
+      };
+}
