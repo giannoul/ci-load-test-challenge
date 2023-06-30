@@ -36,7 +36,6 @@ jobs:
         run: |
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "k6results<<$EOF" >> "$GITHUB_ENV"
-          echo "Load Test Results:" >> "$GITHUB_ENV"
           cat comment.txt >> "$GITHUB_ENV"
           echo "$EOF" >> "$GITHUB_ENV"
 
@@ -50,6 +49,8 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `
+                ### Load Test Results
+
                 ${{env.k6results}}
               `
             })
