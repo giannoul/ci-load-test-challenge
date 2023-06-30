@@ -28,6 +28,15 @@ jobs:
       - name: Install k6
         run: make install-k6
 
+      - name: Install Prometheus
+        run: make install-prometheus
+
+      - name: Install metrics-server
+        run: make install-metrics-server
+
+      - name: Wait 120 seconds 
+        run: sleep 120
+
       - name: Run load test
         run: make run-k6
 
@@ -38,12 +47,9 @@ jobs:
           cat comment.txt >> "$GITHUB_ENV"
           echo "$EOF" >> "$GITHUB_ENV"
 
-      - name: Install Prometheus
-        run: make install-prometheus
-
-      - name: Install metrics-server
-        run: make install-metrics-server
-
+      - name: Wait 120 seconds 
+        run: sleep 120
+        
       - name: Expose Prometheus
         run: make prometheus-port-fwd
         
