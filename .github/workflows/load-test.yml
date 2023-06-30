@@ -42,10 +42,10 @@ jobs:
         run: make install-prometheus
 
       - name: Install metrics-server
-        run: make metrics-server
+        run: make install-metrics-server
 
       - name: Expose Prometheus
-        run: prometheus-port-fwd
+        run: make prometheus-port-fwd
         
       - name: Get Prometheus results
         run: |
