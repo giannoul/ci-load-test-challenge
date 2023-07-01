@@ -63,3 +63,9 @@ We collect the `k6` test results, store them into a variable and post them as co
 > deploy a monitoring solution (prometheus?) for the workload, capture resource utilisation to augment the load testing report
 
 We deploy `prometheus-community/kube-prometheus-stack` and `metrics-server/metrics-server` using Helm. Then, after the load test we collect the query results that regard the CPU and Memory consumption for both applications.
+
+## Result
+
+In the link https://github.com/giannoul/ci-load-test-challenge/pull/24 you may find a run of the GitHub Action workflow with the following result:
+
+![workflow result](./ci-load-test-challenge.PNG)
